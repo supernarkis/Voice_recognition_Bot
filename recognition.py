@@ -4,7 +4,7 @@ import speech_recognition
 from pathlib import Path
 from pydub import AudioSegment
 
-token = '1992161885:AAHpAKmtPS2vspI42nqgr_HVEqB-n_a8VdA'
+token = ''
 bot = telebot.TeleBot(token)
 
 print (os.getcwd())
