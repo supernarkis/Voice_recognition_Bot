@@ -1,19 +1,17 @@
 import os
+import subprocess
 import telebot
 import speech_recognition
-from pathlib import Path
-from pydub import AudioSegment
 
-token = ''
+
+token = '1992161885:AAHpAKmtPS2vspI42nqgr_HVEqB-n_a8VdA'
 bot = telebot.TeleBot(token)
 
 print (os.getcwd())
 def oga2wav(filename):
     # Конвертация формата файлов
     new_filename = filename.replace('.oga', '.wav')
-    audio = AudioSegment.from_file("a.oga", format="oga")
-
-    audio.export(new_filename, format='wav')
+    process = subprocess.run(['ffmpeg', '-i', filename, new_filename])
     return new_filename
 
 
@@ -22,8 +20,8 @@ def recognize_speech(oga_filename):
     wav_filename = oga2wav(oga_filename)
     recognizer = speech_recognition.Recognizer()
 
-    with speech_recognition.WavFile(wav_filename) as source:
-        wav_audio = recognizer.record(source)
+    with speech_recognition.WavFile(wav_filename) as wav_file:
+        wav_audio = recognizer.record(wav_file)
 
     text = recognizer.recognize_google(wav_audio, language='ru')
 
